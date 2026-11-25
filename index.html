@@ -572,14 +572,15 @@
         <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search channels & matches...">
       </div>
       
-      <!-- Category Pills -->
+            <!-- Category Pills -->
       <div class="category-bar" id="categoryBar">
-        <div class="cat-pill active" data-cat="all">All (الكل)</div>
+        <div class="cat-pill active" data-cat="all">All (الكل - 74)</div>
         <div class="cat-pill" data-cat="sports">⚽ Sports & Football (الرياضة)</div>
-        <div class="cat-pill" data-cat="arabic">🌍 عربي (Arabic)</div>
+        <div class="cat-pill" data-cat="arabic">🌍 عربي وسوريا (Arabic)</div>
         <div class="cat-pill" data-cat="movies">🎬 Movies (الأفلام)</div>
         <div class="cat-pill" data-cat="news">📰 News (الأخبار)</div>
         <div class="cat-pill" data-cat="kids">👶 Kids (أطفال)</div>
+        <div class="cat-pill" data-cat="music">🎵 Music (طرب وموسيقى)</div>
         <div class="cat-pill" data-cat="custom">⭐ My Match Streams</div>
       </div>
 
@@ -628,46 +629,80 @@
     // Strict ES5 JavaScript for iOS 9.3.5 Safari
     (function() {
       var CHANNELS = [
-        // Sports & Live Football
         { id: "bein_usa", name: "beIN SPORTS USA", nameAr: "بي إن سبورتس الأمريكية (مباريات وبطولات)", cat: "sports", quality: "720p HD", icon: "⚽", url: "https://tvsen6.aynaott.com/beinsports/index.m3u8" },
         { id: "bein_xtra", name: "beIN SPORTS XTRA", nameAr: "بي إن سبورتس إكسترا الرياضية", cat: "sports", quality: "720p HD", icon: "⚽", url: "https://bein-xtra-bein.amagi.tv/playlist.m3u8" },
-        { id: "alkass1", name: "Alkass 1 HD Live", nameAr: "قناة الكأس 1 الرياضية (مباريات مباشرة)", cat: "sports", quality: "1080p HD", icon: "🏆", url: "https://shoof.alkass.net/shoof/live/live_1.m3u8" },
+        { id: "alkass1", name: "Alkass 1 HD Live", nameAr: "قناة الكأس 1 الرياضية القطرية (مباريات مباشرة)", cat: "sports", quality: "1080p HD", icon: "🏆", url: "https://shoof.alkass.net/shoof/live/live_1.m3u8" },
         { id: "alkass2", name: "Alkass 2 HD Live", nameAr: "قناة الكأس 2 الرياضية", cat: "sports", quality: "1080p HD", icon: "🏆", url: "https://shoof.alkass.net/shoof/live/live_2.m3u8" },
         { id: "alkass4", name: "Alkass 4 HD Live", nameAr: "قناة الكأس 4 الرياضية", cat: "sports", quality: "1080p HD", icon: "🏆", url: "https://shoof.alkass.net/shoof/live/live_4.m3u8" },
+        { id: "ktv_sport", name: "KTV Sport HD", nameAr: "قناة الكويت الرياضية الرسمية", cat: "sports", quality: "1080p HD", icon: "⚽", url: "https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8" },
+        { id: "ktv_sport_plus", name: "KTV Sport Plus HD", nameAr: "قناة الكويت الرياضية بلس", cat: "sports", quality: "1080p HD", icon: "⚽", url: "https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8" },
         { id: "cbs_golazo", name: "CBS Sports Golazo (Champions League)", nameAr: "دوري أبطال أوروبا وسيري آ الإيطالي", cat: "sports", quality: "720p HD", icon: "🥅", url: "https://dai.google.com/linear/hls/event/7f3Wv6f7QEKfQna22jHqLQ/master.m3u8" },
         { id: "eurovision_sport", name: "Eurovision Sport", nameAr: "البطولات الرياضية الأوروبية الرسمية", cat: "sports", quality: "720p HD", icon: "🏅", url: "https://amg26268-amg26268c34-amgplt0018.playout.now3.amagi.tv/playlist.m3u8" },
         { id: "redbull_tv", name: "Red Bull TV Live Sports", nameAr: "ريد بُل تي في للرياضات العالمية والسباقات", cat: "sports", quality: "1080p HD", icon: "🏎️", url: "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8" },
         { id: "sportsgrid", name: "Sports Grid Live Network", nameAr: "شبكة سبورتس جريد لتحليلات المباريات المباشرة", cat: "sports", quality: "720p HD", icon: "📊", url: "https://sportsgrid-klowdtv.amagi.tv/playlist.m3u8" },
         { id: "ftf_sports", name: "FTF Sports Live Network", nameAr: "إف تي إف سبورتس للمباريات المباشرة", cat: "sports", quality: "720p HD", icon: "🥊", url: "https://1657061170.rsc.cdn77.org/HLS/FTF-LINEAR.m3u8" },
+        { id: "nbc_sports_now", name: "NBC Sports NOW", nameAr: "إن بي سي سبورتس الأمريكية", cat: "sports", quality: "1080p HD", icon: "🏈", url: "https://d4whmvwm0rdvi.cloudfront.net/10007/99993008/hls/master.m3u8?ads.xumo_channelId=99993008" },
+        { id: "marquee_sports", name: "Marquee Sports Network", nameAr: "ماركي سبورتس الأمريكية", cat: "sports", quality: "720p HD", icon: "⚾", url: "https://tvsen6.aynaott.com/MarqueeSportsNetwork/index.m3u8" },
+        { id: "talksport", name: "talkSPORT HD", nameAr: "توك سبورت البريطانية لأخبار الدوري الإنجليزي", cat: "sports", quality: "1080p HD", icon: "🎙️", url: "https://af7a8b4e.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctZ2JfdGFsa1NQT1JUX0hMUw/playlist.m3u8" },
         { id: "tvs_classicsport", name: "TVS Classic Sports", nameAr: "كلاسيك سبورتس للنزالات والمباريات التاريخية", cat: "sports", quality: "SD", icon: "🥊", url: "https://rpn.bozztv.com/gusa/gusa-tvs/index.m3u8" },
-
-        // Arabic Channels
-        { id: "aja", name: "Al Jazeera Arabic", nameAr: "الجزيرة الإخبارية", cat: "arabic", quality: "1080p HD", icon: "🌍", url: "https://live-hls-apps-aja-fa.getaj.net/AJA/index.m3u8" },
-        { id: "ajm", name: "Al Jazeera Mubasher", nameAr: "الجزيرة مباشر", cat: "arabic", quality: "1080p HD", icon: "🔴", url: "https://live-hls-apps-ajm-fa.getaj.net/AJM/index.m3u8" },
-        { id: "ajd", name: "Al Jazeera Documentary", nameAr: "الجزيرة الوثائقية", cat: "arabic", quality: "1080p HD", icon: "🦁", url: "https://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8" },
-        { id: "ara", name: "Al Arabiya HD", nameAr: "قناة العربية", cat: "arabic", quality: "720p HD", icon: "⚡", url: "https://live.alarabiya.net/alarabiapublish/alarabiya.smil/playlist.m3u8" },
-        { id: "had", name: "Al Hadath", nameAr: "قناة الحدث", cat: "arabic", quality: "720p HD", icon: "🔴", url: "https://live.alarabiya.net/alarabiapublish/alhadath.smil/playlist.m3u8" },
-        { id: "sna", name: "Sky News Arabia", nameAr: "سكاي نيوز عربية", cat: "arabic", quality: "720p HD", icon: "📡", url: "https://stream.skynewsarabia.com/hls/sna.m3u8" },
-        { id: "trt", name: "TRT Arabic", nameAr: "تي آر تي عربي", cat: "arabic", quality: "1080p HD", icon: "🌐", url: "https://tv-trtarabi.medya.trt.com.tr/master.m3u8" },
-        { id: "sharjah", name: "Sharjah TV HD", nameAr: "تلفزيون الشارقة", cat: "arabic", quality: "1080p HD", icon: "🕌", url: "https://svs.itworkscdn.net/smctvlive/smctv.smil/playlist.m3u8" },
-
-        // Movies & Cinema
+        { id: "syria_tv", name: "Syria TV HD", nameAr: "تلفزيون سوريا الرسمي", cat: "arabic", quality: "1080p HD", icon: "🇸🇾", url: "https://live.kwikmotion.com/syriatvlive/syriatv.smil/playlist_dvr.m3u8" },
+        { id: "bab_alhara", name: "Bab Al Hara 24/7", nameAr: "قناة باب الحارة متواصل 24 ساعة", cat: "arabic", quality: "1080p HD", icon: "🗡️", url: "https://shd-amg-fast.edgenextcdn.net/tx010/playlist.m3u8" },
+        { id: "maraya_tv", name: "Maraya Yasser Al-Azma 24/7", nameAr: "قناة مرايا ياسر العظمة متواصل", cat: "arabic", quality: "1080p HD", icon: "🎭", url: "https://shd-amg-fast.edgenextcdn.net/tx008/playlist.m3u8" },
+        { id: "fairuz_tv", name: "Fairuz 24/7 Live", nameAr: "قناة فيروز وسفيرتنا إلى النجوم 24 ساعة", cat: "arabic", quality: "1080p HD", icon: "🎶", url: "https://shd-amg-fast.edgenextcdn.net/tx029/playlist.m3u8" },
+        { id: "aflam_arabia", name: "Aflam Arabic Cinema 24/7", nameAr: "قناة أفلام سينما عربية متواصل", cat: "arabic", quality: "1080p HD", icon: "🎬", url: "https://shd-amg-fast.edgenextcdn.net/tx001/playlist.m3u8" },
+        { id: "mbc1_egypt", name: "MBC 1 Egypt HD", nameAr: "إم بي سي 1 مصر", cat: "arabic", quality: "1080p HD", icon: "📺", url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-1-na/eec141533c90dd34722c503a296dd0d8/index.m3u8" },
+        { id: "mbc_masr_drama", name: "MBC Masr Drama HD", nameAr: "إم بي سي مصر دراما", cat: "arabic", quality: "1080p HD", icon: "🎭", url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-masr-drama/567b703c19ede6598222de81b0e4508b/index.m3u8" },
+        { id: "mbc_plus_drama", name: "MBC+ Drama HD", nameAr: "إم بي سي بلس دراما", cat: "arabic", quality: "1080p HD", icon: "🎭", url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-plus-drama/e37251ec2aac8f6c98f75cd0fa37cd28/index.m3u8" },
+        { id: "asharq_discovery", name: "Asharq Discovery HD", nameAr: "الشرق ديسكفري للوثائقيات والعلوم", cat: "arabic", quality: "1080p HD", icon: "🔬", url: "https://svs.itworkscdn.net/asharqdiscoverylive/asharqd.smil/playlist_dvr.m3u8" },
+        { id: "asharq_doc", name: "Asharq Documentary HD", nameAr: "الشرق الوثائقية", cat: "arabic", quality: "1080p HD", icon: "🦁", url: "https://svs.itworkscdn.net/asharqdocumentarylive/asharqdocumentary.smil/playlist_dvr.m3u8" },
+        { id: "al_quran_tv", name: "Al Quran Al Kareem (Makkah Live)", nameAr: "قناة القرآن الكريم بث مباشر من مكة المكرمة", cat: "arabic", quality: "720p HD", icon: "🕋", url: "http://m.live.net.sa:1935/live/quran/gmswf.m3u8" },
+        { id: "al_sunnah_tv", name: "Al Sunnah Al Nabawiyah (Madinah Live)", nameAr: "قناة السنة النبوية بث مباشر من المدينة المنورة", cat: "arabic", quality: "720p HD", icon: "🕌", url: "http://m.live.net.sa:1935/live/sunnah/gmswf.m3u8" },
+        { id: "sharjah_tv", name: "Sharjah TV HD", nameAr: "تلفزيون الشارقة الرسمي", cat: "arabic", quality: "1080p HD", icon: "🕌", url: "https://svs.itworkscdn.net/smctvlive/smctv.smil/playlist.m3u8" },
+        { id: "ktv1", name: "KTV 1 HD", nameAr: "تلفزيون دولة الكويت القناة الأولى", cat: "arabic", quality: "1080p HD", icon: "🇰🇼", url: "https://kwtktv1ta.cdn.mangomolo.com/ktv1/smil:ktv1.stream.smil/chunklist.m3u8" },
+        { id: "ktv_arabe", name: "KTV Al Arabe HD", nameAr: "قناة العربي الكويتية الثقافية", cat: "arabic", quality: "1080p HD", icon: "🇰🇼", url: "https://kwtktvata.cdn.mangomolo.com/ktva/smil:tktva.stream.smil/chunklist.m3u8" },
+        { id: "watania1", name: "El Watania 1 HD", nameAr: "التلفزة الوطنية التونسية 1", cat: "arabic", quality: "1080p HD", icon: "🇹🇳", url: "https://sw1.tanitweb.net/TunisiaTV/_definst_/watania1/chunklist.m3u8" },
+        { id: "medi1_tv", name: "Medi 1 TV Maghreb HD", nameAr: "ميدي 1 تيفي المغربية", cat: "arabic", quality: "1080p HD", icon: "🇲🇦", url: "https://cdn.live.easybroadcast.io/abr_corp/83_medi1tv-maghreb_jnbspmg/playlist.m3u8" },
+        { id: "falastini_tv", name: "Falastini TV HD", nameAr: "قناة فلسطيني الفضائية", cat: "arabic", quality: "1080p HD", icon: "🇵🇸", url: "https://rp.tactivemedia.com/palestiniantv_source/live/playlist.m3u8" },
+        { id: "aja", name: "Al Jazeera Arabic", nameAr: "الجزيرة الإخبارية", cat: "news", quality: "1080p HD", icon: "🌍", url: "https://live-hls-apps-aja-fa.getaj.net/AJA/index.m3u8" },
+        { id: "ajm", name: "Al Jazeera Mubasher", nameAr: "الجزيرة مباشر", cat: "news", quality: "1080p HD", icon: "🔴", url: "https://live-hls-apps-ajm-fa.getaj.net/AJM/index.m3u8" },
+        { id: "ajd", name: "Al Jazeera Documentary", nameAr: "الجزيرة الوثائقية", cat: "news", quality: "1080p HD", icon: "🦁", url: "https://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8" },
+        { id: "ara", name: "Al Arabiya HD", nameAr: "قناة العربية الإخبارية", cat: "news", quality: "720p HD", icon: "⚡", url: "https://live.alarabiya.net/alarabiapublish/alarabiya.smil/playlist.m3u8" },
+        { id: "had", name: "Al Hadath", nameAr: "قناة الحدث الإخبارية", cat: "news", quality: "720p HD", icon: "🔴", url: "https://live.alarabiya.net/alarabiapublish/alhadath.smil/playlist.m3u8" },
+        { id: "sna", name: "Sky News Arabia", nameAr: "سكاي نيوز عربية", cat: "news", quality: "720p HD", icon: "📡", url: "https://stream.skynewsarabia.com/hls/sna.m3u8" },
+        { id: "asharq_news", name: "Asharq News HD (Bloomberg)", nameAr: "الشرق للأخبار واقتصاد بلومبرغ", cat: "news", quality: "1080p HD", icon: "📈", url: "https://live-news.asharq.com/asharq.m3u8" },
+        { id: "trt", name: "TRT Arabic", nameAr: "تي آر تي عربي", cat: "news", quality: "1080p HD", icon: "🌐", url: "https://tv-trtarabi.medya.trt.com.tr/master.m3u8" },
+        { id: "bloom", name: "Bloomberg TV US", nameAr: "بلومبرغ نيوز الاقتصادية الأمريكية", cat: "news", quality: "1080p HD", icon: "📈", url: "https://bloomberg.com/media-manifest/streams/us.m3u8" },
+        { id: "aje", name: "Al Jazeera English HD", nameAr: "الجزيرة الإنجليزية الدولية", cat: "news", quality: "1080p HD", icon: "🎙️", url: "https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8" },
+        { id: "dw", name: "DW English (Germany)", nameAr: "دويتشه فيله الإنجليزية الألمانية", cat: "news", quality: "720p HD", icon: "🏛️", url: "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8" },
+        { id: "nasa", name: "NASA TV HD Space", nameAr: "تلفزيون وكالة ناسا الأمريكية للفضاء", cat: "news", quality: "1080p HD", icon: "🚀", url: "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8" },
+        { id: "mov_action_fast", name: "Movies Action Cinema HD", nameAr: "أفلام أكشن وإثارة هوليوود 24 ساعة", cat: "movies", quality: "1080p HD", icon: "💥", url: "https://shd-amg-fast.edgenextcdn.net/tx011/playlist.m3u8" },
+        { id: "mov_thriller_fast", name: "Movies Thriller & Suspense HD", nameAr: "أفلام تشويق وغموض ورعب 24 ساعة", cat: "movies", quality: "1080p HD", icon: "🔪", url: "https://shd-amg-fast.edgenextcdn.net/tx012/playlist.m3u8" },
         { id: "mov24", name: "24H Free Movies HD", nameAr: "أفلام هوليوود 24 ساعة", cat: "movies", quality: "1080p HD", icon: "🎬", url: "https://d1j2u714xk898n.cloudfront.net/scheduler/scheduleMaster/145.m3u8" },
         { id: "act50", name: "50 Cent Action Cinema", nameAr: "أكشن سينما 50 سنت", cat: "movies", quality: "720p HD", icon: "💥", url: "https://jmp2.uk/plu-68487fb3f212bedacf5a53e3.m3u8" },
-        { id: "cinemaclassic", name: "Classic Cinema HD", nameAr: "سينما كلاسيك هوليوود", cat: "movies", quality: "720p HD", icon: "🍿", url: "https://30a-tv.com/feeds/pzaz/30atvmovies.m3u8" },
+        { id: "hallmark_movies", name: "Hallmark Movies & More", nameAr: "أفلام هولمارك العائلية والرومانسية", cat: "movies", quality: "1080p HD", icon: "💖", url: "https://dbrb49pjoymg4.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/master.m3u8?ads.xumo_channelId=99991709" },
+        { id: "magnificent_movies", name: "Magnificent Movies Network", nameAr: "سينما ماجنيفيسنت للأفلام المتنوعة", cat: "movies", quality: "720p HD", icon: "🍿", url: "https://mmn1.b-cdn.net/hls/MMN-HLS.m3u8" },
+        { id: "cinemaclassic", name: "Classic Cinema HD", nameAr: "سينما كلاسيك هوليوود الذهبية", cat: "movies", quality: "720p HD", icon: "🍿", url: "https://30a-tv.com/feeds/pzaz/30atvmovies.m3u8" },
         { id: "drivein", name: "TVS Drive-In Movies", nameAr: "درايف إن سينما الأمريكية", cat: "movies", quality: "SD", icon: "📽️", url: "https://rpn.bozztv.com/gusa/gusa-tvsdriveinmovie/index.m3u8" },
         { id: "nostalgia", name: "TVS Nostalgia Movies", nameAr: "أفلام نوستالجيا والزمن الجميل", cat: "movies", quality: "SD", icon: "🎞️", url: "https://rpn.bozztv.com/gusa/gusa-tvsNostalgiaMovies/index.m3u8" },
-
-        // Worldwide News
-        { id: "bloom", name: "Bloomberg TV US", nameAr: "بلومبرغ نيوز الاقتصادية", cat: "news", quality: "1080p HD", icon: "📈", url: "https://bloomberg.com/media-manifest/streams/us.m3u8" },
-        { id: "aje", name: "Al Jazeera English HD", nameAr: "الجزيرة الإنجليزية العالمية", cat: "news", quality: "1080p HD", icon: "🎙️", url: "https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8" },
-        { id: "dw", name: "DW English (Germany)", nameAr: "دويتشه فيله الإنجليزية", cat: "news", quality: "720p HD", icon: "🏛️", url: "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8" },
-        { id: "nasa", name: "NASA TV HD Space", nameAr: "تلفزيون وكالة ناسا للفضاء", cat: "news", quality: "1080p HD", icon: "🚀", url: "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8" },
-
-        // Kids & Cartoons
+        { id: "tvs_western", name: "TVS Western Movies", nameAr: "أفلام الغرب الأمريكي والكاوبوي", cat: "movies", quality: "SD", icon: "🤠", url: "https://rpn.bozztv.com/gusa/gusa-tvswesternmovies/index.m3u8" },
+        { id: "cartoon_cartoons", name: "Cartoon Cartoons 24/7", nameAr: "كرتون كرتونز الكلاسيكي (ديكستر وجوني برافو)", cat: "kids", quality: "720p HD", icon: "📺", url: "https://cartooncartoons.thatsoretro.com/hls/stream.m3u8" },
         { id: "pbskids", name: "PBS Kids Live", nameAr: "بي بي إس كيدز الأمريكية للأطفال", cat: "kids", quality: "720p HD", icon: "🐵", url: "https://livestream.pbskids.org/out/v1/14507d931bbe48a69287e4850e53443c/est.m3u8" },
-        { id: "botflix", name: "Botflix Cartoon 24/7", nameAr: "بوت فليكس كرتون متواصل", cat: "kids", quality: "720p HD", icon: "🤖", url: "https://hls.botflix.tv/tv/index.m3u8" },
-        { id: "kids3abn", name: "3ABN Kids Network", nameAr: "شبكة 3ABN الترفيهية للأطفال", cat: "kids", quality: "SD", icon: "🎨", url: "https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8" }
+        { id: "botflix", name: "Botflix Cartoon 24/7", nameAr: "بوت فليكس كرتون متواصل 24 ساعة", cat: "kids", quality: "720p HD", icon: "🤖", url: "https://hls.botflix.tv/tv/index.m3u8" },
+        { id: "toonami_movies", name: "Toonami Aftermath Movies", nameAr: "تونامي كرتون ومغامرات أنمي كلاسيكية", cat: "kids", quality: "540p", icon: "⚡", url: "http://api.toonamiaftermath.com:3000/movies/playlist.m3u8" },
+        { id: "kids3abn", name: "3ABN Kids Network", nameAr: "شبكة 3ABN الترفيهية للأطفال", cat: "kids", quality: "SD", icon: "🎨", url: "https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8" },
+        { id: "m_abdo", name: "Mohammed Abdo 24/7", nameAr: "فنان العرب محمد عبده متواصل 24 ساعة", cat: "music", quality: "1080p HD", icon: "🎙️", url: "https://d2ow8h651gs7dx.cloudfront.net/out/v1/371fb663da604e659a2fb99bf89d92d4/index.m3u8" },
+        { id: "m_majid", name: "Majid Al Mohandis 24/7", nameAr: "ماجد المهندس متواصل 24 ساعة", cat: "music", quality: "1080p HD", icon: "🎵", url: "https://shd-amg-fast.edgenextcdn.net/tx019/playlist.m3u8" },
+        { id: "m_abdulmajeed", name: "Abdulmajeed Abdullah 24/7", nameAr: "عبد المجيد عبد الله متواصل 24 ساعة", cat: "music", quality: "1080p HD", icon: "🎼", url: "https://d2hng5r56zpsbw.cloudfront.net/out/v1/9c4c990f44bb4767bb46271f326dd574/index.m3u8" },
+        { id: "al_saudiya", name: "Al Saudiya 1 HD", nameAr: "القناة السعودية الرسمية الأولى", cat: "arabic", quality: "1080p HD", icon: "🇸🇦", url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-saudi-tv/2ad66056b51fd8c1b624854623112e43/index.m3u8" },
+        { id: "al_ekhbariya_sa", name: "Al Ekhbariya Saudi HD", nameAr: "قناة الإخبارية السعودية الرسمية", cat: "arabic", quality: "1080p HD", icon: "🇸🇦", url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-al-ekhbaria/297b3ef1cd0633ad9cfba7473a686a06/index.m3u8" },
+        { id: "oman_tv", name: "Oman TV HD", nameAr: "تلفزيون سلطنة عمان الرسمي", cat: "arabic", quality: "1080p HD", icon: "🇴🇲", url: "https://partneta.cdn.mgmlcdn.com/omantv/smil:omantv.stream.smil/chunklist.m3u8" },
+        { id: "oman_cultural", name: "Oman Althakafia HD", nameAr: "قناة عمان الثقافية", cat: "arabic", quality: "1080p HD", icon: "🇴🇲", url: "https://partwota.cdn.mgmlcdn.com/omcultural/smil:omcultural.stream.smil/chunklist.m3u8" },
+        { id: "ktv_qurain", name: "KTV Al Qurain HD", nameAr: "قناة القرين الكويتية للتراث والمسلسلات القديمة", cat: "arabic", quality: "1080p HD", icon: "🇰🇼", url: "https://kwtktvaqta.cdn.mangomolo.com/ktvaq/smil:tktvaq.stream.smil/chunklist.m3u8" },
+        { id: "ktv_ethraa", name: "KTV Ethraa HD", nameAr: "قناة إثراء الكويتية للبرامج الدينية والاجتماعية", cat: "arabic", quality: "1080p HD", icon: "🇰🇼", url: "https://kwtethta.cdn.mangomolo.com/eth/smil:eth.stream.smil/chunklist.m3u8" },
+        { id: "makkah_tv", name: "Makkah TV Live", nameAr: "قناة مكة الفضائية", cat: "arabic", quality: "576p", icon: "🕋", url: "https://media2.streambrothers.com:1936/8122/8122/playlist.m3u8" },
+        { id: "watania2", name: "El Watania 2 HD", nameAr: "التلفزة الوطنية التونسية 2 للدراما والرياضة", cat: "arabic", quality: "1080p HD", icon: "🇹🇳", url: "https://sw1.tanitweb.net/TunisiaTV/_definst_/watania2/playlist.m3u8?DVR" },
+        { id: "maan_news", name: "Ma'an TV HD", nameAr: "شبكة معا الفلسطينية", cat: "arabic", quality: "720p HD", icon: "🇵🇸", url: "https://htvmada.mada.ps:4443/maannews/index.m3u8" },
+        { id: "qudsuna_tv", name: "Qudsuna TV HD", nameAr: "قناة قدسنا الفضائية", cat: "arabic", quality: "1080p HD", icon: "🇵🇸", url: "https://qudsunatv-live.cdnnew.com/qudsunatv/qudsuna.m3u8" }
       ];
 
       var activeCategory = "all";
