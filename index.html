@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TVPro - Live Worldwide TV</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TVPro">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="apple-touch-icon" href="AppIcon.png">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: #0b0e14;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.4;
+      overflow-x: hidden;
+      height: 100vh;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Bar */
+    header {
+      background: #111622;
+      border-bottom: 1px solid #1e2638;
+      padding: 8px 16px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      z-index: 50;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    
+    .brand-wrap {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: -webkit-linear-gradient(135deg, #3b82f6, #8b5cf6);
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+    
+    .brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+    
+    .brand-title span {
+      color: #38bdf8;
+    }
+
+    .header-actions {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-action {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-action:hover, .btn-action:active {
+      background: #334155;
+      color: #fff;
+    }
+
+    /* Main Container (Landscape = 2 columns, Portrait = stacked) */
+    .app-main {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Sidebar / Channel Guide (Left in Landscape) */
+    .channel-guide {
+      width: 380px;
+      background: #101520;
+      border-right: 1px solid #1e2638;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .guide-search {
+      padding: 10px 14px 6px;
+    }
+    
+    .search-input {
+      width: 100%;
+      background: #182030;
+      border: 1px solid #26334d;
+      color: #fff;
+      font-size: 13px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      outline: none;
+    }
+    .search-input:focus {
+      border-color: #38bdf8;
+    }
+
+    /* Category Filter Pills */
+    .category-bar {
+      padding: 6px 14px 10px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+      border-bottom: 1px solid #1a2233;
+    }
+    .category-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-pill {
+      background: #1a2233;
+      border: 1px solid #28354f;
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .cat-pill.active {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Channel List */
+    .channel-list {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px;
+    }
+
+    .channel-item {
+      background: #151a26;
+      border: 1px solid #1f2739;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      -webkit-transition: all 0.15s ease;
+      transition: all 0.15s ease;
+    }
+    .channel-item:hover, .channel-item:active {
+      background: #1e2638;
+      border-color: #334155;
+    }
+    .channel-item.playing {
+      background: -webkit-linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(139, 92, 246, 0.15));
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(139, 92, 246, 0.15));
+      border: 1px solid #3b82f6;
+    }
+
+    .channel-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: #20293d;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      font-size: 20px;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
+    }
+
+    .channel-meta {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .channel-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .channel-sub {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 2px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-live {
+      background: #dc2626;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-tag {
+      background: #1e293b;
+      color: #94a3b8;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid #334155;
+    }
+
+    /* Player View (Right in Landscape) */
+    .player-area {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      background: #000;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+    }
+
+    .video-viewport {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      background: #000;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      background: #000;
+      outline: none;
+    }
+
+    /* Video Player Overlay Control Bar */
+    .player-info-bar {
+      background: #0d121c;
+      border-top: 1px solid #1a2233;
+      padding: 12px 18px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+    }
+
+    .now-playing-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .now-playing-sub {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    .player-buttons {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-ctrl {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-ctrl:hover, .btn-ctrl:active {
+      background: #2563eb;
+      border-color: #3b82f6;
+    }
+
+    /* Portrait Mode Layout */
+    @media (max-width: 768px), (orientation: portrait) {
+      .app-main {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+      .player-area {
+        height: auto;
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 0 auto;
+        flex: 0 0 auto;
+      }
+      .video-viewport {
+        height: 260px;
+        -webkit-box-flex: 0;
+        -webkit-flex: none;
+        flex: none;
+      }
+      .channel-guide {
+        width: 100%;
+        border-right: none;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+      }
+    }
+
+    /* Modal for Custom Stream */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 100;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-card {
+      background: #151b27;
+      border: 1px solid #2b384e;
+      border-radius: 12px;
+      max-width: 420px;
+      width: 100%;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    }
+    .modal-card h3 {
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .modal-card input {
+      width: 100%;
+      background: #0f131c;
+      border: 1px solid #2b384e;
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+    .modal-btns {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="brand-wrap">
+      <div class="brand-logo">📺</div>
+      <div class="brand-title">TV<span>Pro</span></div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-action" id="btnAddStream">+ Add Stream</button>
+      <button class="btn-action" id="btnReload">🔄 Reload</button>
+    </div>
+  </header>
+
+  <!-- Main View -->
+  <div class="app-main">
+    
+    <!-- Left Sidebar: Channel Guide -->
+    <div class="channel-guide">
+      <div class="guide-search">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search channels...">
+      </div>
+      
+      <!-- Category Pills -->
+      <div class="category-bar" id="categoryBar">
+        <div class="cat-pill active" data-cat="all">All (الكل)</div>
+        <div class="cat-pill" data-cat="arabic">عربي (Arabic)</div>
+        <div class="cat-pill" data-cat="sports">Sports (الرياضة)</div>
+        <div class="cat-pill" data-cat="movies">Movies (الأفلام)</div>
+        <div class="cat-pill" data-cat="news">News (الأخبار)</div>
+        <div class="cat-pill" data-cat="kids">Kids (أطفال)</div>
+        <div class="cat-pill" data-cat="custom">My Channels</div>
+      </div>
+
+      <!-- Channel List -->
+      <div class="channel-list" id="channelList">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- Right Side: Player Area -->
+    <div class="player-area">
+      <div class="video-viewport">
+        <video id="tvPlayer" controls autoplay playsinline webkit-playsinline></video>
+      </div>
+
+      <div class="player-info-bar">
+        <div>
+          <div class="now-playing-title" id="nowTitle">Select a channel</div>
+          <div class="now-playing-sub" id="nowSub">Hardware accelerated HLS • iOS 9.3.5</div>
+        </div>
+        <div class="player-buttons">
+          <button class="btn-ctrl" id="btnPrev">⏮ Prev</button>
+          <button class="btn-ctrl" id="btnNext">Next ⏭</button>
+          <button class="btn-ctrl" id="btnFull">⛶ Fullscreen</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Custom Stream Modal -->
+  <div class="modal-overlay" id="customModal">
+    <div class="modal-card">
+      <h3>Add Custom HLS (.m3u8) Stream</h3>
+      <input type="text" id="customName" placeholder="Channel Name (e.g. My Movie TV)">
+      <input type="text" id="customUrl" placeholder="Stream URL (https://.../stream.m3u8)">
+      <div class="modal-btns">
+        <button class="btn-action" id="btnCancelCustom">Cancel</button>
+        <button class="btn-action" style="background:#2563eb; color:#fff;" id="btnSaveCustom">Save Channel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Strict ES5 JavaScript for iOS 9.3.5 Safari
+    (function() {
+      var CHANNELS = [
+        // Arabic
+        { id: "aja", name: "Al Jazeera Arabic", nameAr: "الجزيرة الإخبارية", cat: "arabic", quality: "1080p HD", icon: "🌍", url: "https://live-hls-apps-aja-fa.getaj.net/AJA/index.m3u8" },
+        { id: "ara", name: "Al Arabiya HD", nameAr: "قناة العربية", cat: "arabic", quality: "720p HD", icon: "⚡", url: "https://live.alarabiya.net/alarabiapublish/alarabiya.smil/playlist.m3u8" },
+        { id: "had", name: "Al Hadath", nameAr: "قناة الحدث", cat: "arabic", quality: "720p HD", icon: "🔴", url: "https://live.alarabiya.net/alarabiapublish/alhadath.smil/playlist.m3u8" },
+        { id: "ajd", name: "Al Jazeera Documentary", nameAr: "الجزيرة الوثائقية", cat: "arabic", quality: "1080p HD", icon: "🦁", url: "https://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8" },
+        { id: "sna", name: "Sky News Arabia", nameAr: "سكاي نيوز عربية", cat: "arabic", quality: "720p HD", icon: "📡", url: "https://stream.skynewsarabia.com/hls/sna.m3u8" },
+        { id: "trt", name: "TRT Arabic", nameAr: "تي آر تي عربي", cat: "arabic", quality: "1080p HD", icon: "🌐", url: "https://tv-trtarabi.medya.trt.com.tr/master.m3u8" },
+
+        // Sports
+        { id: "bein", name: "beIN SPORTS XTRA", nameAr: "بي إن سبورتس XTRA", cat: "sports", quality: "720p HD", icon: "⚽", url: "https://bein-xtra-bein.amagi.tv/playlist.m3u8" },
+        { id: "cbs", name: "CBS Sports Golazo", nameAr: "سي بي إس سبورتس جولازو", cat: "sports", quality: "720p HD", icon: "🥅", url: "https://dai.google.com/linear/hls/event/7f3Wv6f7QEKfQna22jHqLQ/master.m3u8" },
+        { id: "redbull", name: "Red Bull TV Live", nameAr: "ريد بُل تي في للرياضات", cat: "sports", quality: "1080p HD", icon: "🏎️", url: "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8" },
+        { id: "sgrid", name: "Sports Grid Network", nameAr: "شبكة سبورتس جريد الرياضية", cat: "sports", quality: "720p HD", icon: "📊", url: "https://sportsgrid-klowdtv.amagi.tv/playlist.m3u8" },
+        { id: "ftf", name: "FTF Sports Live", nameAr: "إف تي إف سبورتس", cat: "sports", quality: "720p HD", icon: "🏆", url: "https://1657061170.rsc.cdn77.org/HLS/FTF-LINEAR.m3u8" },
+        { id: "tvsport", name: "TVS Classic Sports", nameAr: "كلاسيك سبورتس للملاكمة والمباريات", cat: "sports", quality: "SD", icon: "🥊", url: "https://rpn.bozztv.com/gusa/gusa-tvs/index.m3u8" },
+
+        // Movies & Cinema
+        { id: "mov24", name: "24H Free Movies HD", nameAr: "أفلام هوليوود 24 ساعة", cat: "movies", quality: "1080p HD", icon: "🎬", url: "https://d1j2u714xk898n.cloudfront.net/scheduler/scheduleMaster/145.m3u8" },
+        { id: "act50", name: "50 Cent Action Cinema", nameAr: "أكشن سينما 50 سنت", cat: "movies", quality: "720p HD", icon: "💥", url: "https://jmp2.uk/plu-68487fb3f212bedacf5a53e3.m3u8" },
+        { id: "cinemaclassic", name: "Classic Cinema HD", nameAr: "سينما كلاسيك هوليوود", cat: "movies", quality: "720p HD", icon: "🍿", url: "https://30a-tv.com/feeds/pzaz/30atvmovies.m3u8" },
+        { id: "drivein", name: "TVS Drive-In Movies", nameAr: "درايف إن سينما الأمريكية", cat: "movies", quality: "SD", icon: "📽️", url: "https://rpn.bozztv.com/gusa/gusa-tvsdriveinmovie/index.m3u8" },
+        { id: "nostalgia", name: "TVS Nostalgia Movies", nameAr: "أفلام نوستالجيا والزمن الجميل", cat: "movies", quality: "SD", icon: "🎞️", url: "https://rpn.bozztv.com/gusa/gusa-tvsNostalgiaMovies/index.m3u8" },
+
+        // Worldwide News
+        { id: "bloom", name: "Bloomberg TV US", nameAr: "بلومبرغ نيوز الاقتصادية", cat: "news", quality: "1080p HD", icon: "📈", url: "https://bloomberg.com/media-manifest/streams/us.m3u8" },
+        { id: "aje", name: "Al Jazeera English HD", nameAr: "الجزيرة الإنجليزية العالمية", cat: "news", quality: "1080p HD", icon: "🎙️", url: "https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8" },
+        { id: "dw", name: "DW English (Germany)", nameAr: "دويتشه فيله الإنجليزية", cat: "news", quality: "720p HD", icon: "🏛️", url: "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8" },
+        { id: "nasa", name: "NASA TV HD Space", nameAr: "تلفزيون وكالة ناسا للفضاء", cat: "news", quality: "1080p HD", icon: "🚀", url: "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8" },
+
+        // Kids & Cartoons
+        { id: "pbskids", name: "PBS Kids Live", nameAr: "بي بي إس كيدز الأمريكية للأطفال", cat: "kids", quality: "720p HD", icon: "🐵", url: "https://livestream.pbskids.org/out/v1/14507d931bbe48a69287e4850e53443c/est.m3u8" },
+        { id: "botflix", name: "Botflix Cartoon 24/7", nameAr: "بوت فليكس كرتون متواصل", cat: "kids", quality: "720p HD", icon: "🤖", url: "https://hls.botflix.tv/tv/index.m3u8" },
+        { id: "kids3abn", name: "3ABN Kids Network", nameAr: "شبكة 3ABN الترفيهية للأطفال", cat: "kids", quality: "SD", icon: "🎨", url: "https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8" }
+      ];
+
+      var activeCategory = "all";
+      var searchQuery = "";
+      var currentChannelIndex = -1;
+      var displayedChannels = [];
+
+      var player = document.getElementById("tvPlayer");
+      var channelListEl = document.getElementById("channelList");
+      var nowTitleEl = document.getElementById("nowTitle");
+      var nowSubEl = document.getElementById("nowSub");
+      var searchInput = document.getElementById("searchInput");
+      var categoryBar = document.getElementById("categoryBar");
+
+      // Load custom channels from localStorage
+      function getCustomChannels() {
+        try {
+          var saved = localStorage.getItem("tvpro_custom_channels");
+          if (saved) {
+            return JSON.parse(saved);
+          }
+        } catch (e) {}
+        return [];
+      }
+
+      function getAllChannels() {
+        var custom = getCustomChannels();
+        return CHANNELS.concat(custom);
+      }
+
+      function renderChannelList() {
+        var all = getAllChannels();
+        displayedChannels = [];
+
+        var query = searchQuery.toLowerCase().trim();
+        for (var i = 0; i < all.length; i++) {
+          var ch = all[i];
+          var matchCat = (activeCategory === "all" || ch.cat === activeCategory);
+          var matchSearch = true;
+          if (query) {
+            var nameMatch = ch.name.toLowerCase().indexOf(query) !== -1;
+            var arMatch = ch.nameAr ? ch.nameAr.indexOf(query) !== -1 : false;
+            matchSearch = nameMatch || arMatch;
+          }
+
+          if (matchCat && matchSearch) {
+            displayedChannels.push(ch);
+          }
+        }
+
+        channelListEl.innerHTML = "";
+        if (displayedChannels.length === 0) {
+          channelListEl.innerHTML = '<div style="padding:30px; text-align:center; color:#64748b;">No channels found.</div>';
+          return;
+        }
+
+        for (var j = 0; j < displayedChannels.length; j++) {
+          (function(index) {
+            var item = displayedChannels[index];
+            var div = document.createElement("div");
+            div.className = "channel-item" + (currentChannelIndex === index ? " playing" : "");
+
+            var avatar = document.createElement("div");
+            avatar.className = "channel-avatar";
+            avatar.innerHTML = item.icon || "📺";
+
+            var meta = document.createElement("div");
+            meta.className = "channel-meta";
+
+            var nameEl = document.createElement("div");
+            nameEl.className = "channel-name";
+            nameEl.innerHTML = item.name;
+
+            var subEl = document.createElement("div");
+            subEl.className = "channel-sub";
+            subEl.innerHTML = '<span class="badge-live">LIVE</span> <span class="badge-tag">' + (item.quality || "HD") + '</span> ' + (item.nameAr || "");
+
+            meta.appendChild(nameEl);
+            meta.appendChild(subEl);
+            div.appendChild(avatar);
+            div.appendChild(meta);
+
+            div.onclick = function() {
+              playChannel(index);
+            };
+
+            channelListEl.appendChild(div);
+          })(j);
+        }
+      }
+
+      function playChannel(index) {
+        if (index < 0 || index >= displayedChannels.length) return;
+        currentChannelIndex = index;
+        var ch = displayedChannels[index];
+
+        nowTitleEl.innerHTML = (ch.icon || "📺") + " " + ch.name;
+        nowSubEl.innerHTML = (ch.nameAr ? ch.nameAr + " • " : "") + (ch.quality || "HD") + " • HLS Native Stream";
+
+        player.src = ch.url;
+        player.load();
+        var playPromise = player.play();
+        if (playPromise && playPromise.catch) {
+          playPromise.catch(function(e) {
+            console.log("Autoplay waiting for user gesture:", e);
+          });
+        }
+
+        // Save last played
+        try {
+          localStorage.setItem("tvpro_last_channel_id", ch.id);
+        } catch(e) {}
+
+        // Highlight active item
+        var items = channelListEl.getElementsByClassName("channel-item");
+        for (var i = 0; i < items.length; i++) {
+          if (i === index) {
+            items[i].className = "channel-item playing";
+          } else {
+            items[i].className = "channel-item";
+          }
+        }
+      }
+
+      // Search event
+      searchInput.oninput = function() {
+        searchQuery = searchInput.value;
+        renderChannelList();
+      };
+
+      // Category clicks
+      categoryBar.onclick = function(e) {
+        var target = e.target;
+        if (target && target.className.indexOf("cat-pill") !== -1) {
+          var pills = categoryBar.getElementsByClassName("cat-pill");
+          for (var i = 0; i < pills.length; i++) {
+            pills[i].className = "cat-pill";
+          }
+          target.className = "cat-pill active";
+          activeCategory = target.getAttribute("data-cat");
+          renderChannelList();
+        }
+      };
+
+      // Control buttons
+      document.getElementById("btnPrev").onclick = function() {
+        if (displayedChannels.length === 0) return;
+        var next = currentChannelIndex - 1;
+        if (next < 0) next = displayedChannels.length - 1;
+        playChannel(next);
+      };
+
+      document.getElementById("btnNext").onclick = function() {
+        if (displayedChannels.length === 0) return;
+        var next = currentChannelIndex + 1;
+        if (next >= displayedChannels.length) next = 0;
+        playChannel(next);
+      };
+
+      document.getElementById("btnFull").onclick = function() {
+        if (player.webkitEnterFullscreen) {
+          player.webkitEnterFullscreen();
+        } else if (player.requestFullscreen) {
+          player.requestFullscreen();
+        }
+      };
+
+      document.getElementById("btnReload").onclick = function() {
+        if (player.src) {
+          player.load();
+          player.play();
+        }
+      };
+
+      // Custom Stream Modal Logic
+      var modal = document.getElementById("customModal");
+      document.getElementById("btnAddStream").onclick = function() {
+        modal.style.display = "flex";
+      };
+      document.getElementById("btnCancelCustom").onclick = function() {
+        modal.style.display = "none";
+      };
+      document.getElementById("btnSaveCustom").onclick = function() {
+        var name = document.getElementById("customName").value.trim();
+        var url = document.getElementById("customUrl").value.trim();
+        if (!name || !url) {
+          alert("Please enter a name and .m3u8 stream URL.");
+          return;
+        }
+        var newCh = {
+          id: "custom_" + Date.now(),
+          name: name,
+          nameAr: "قناة مخصصة",
+          cat: "custom",
+          quality: "User Stream",
+          icon: "⭐",
+          url: url
+        };
+        var list = getCustomChannels();
+        list.push(newCh);
+        try {
+          localStorage.setItem("tvpro_custom_channels", JSON.stringify(list));
+        } catch(e) {}
+
+        document.getElementById("customName").value = "";
+        document.getElementById("customUrl").value = "";
+        modal.style.display = "none";
+        renderChannelList();
+        alert("Custom stream added!");
+      };
+
+      // Initial Render
+      renderChannelList();
+
+      // Resume last channel or autoplay first
+      var lastId = null;
+      try {
+        lastId = localStorage.getItem("tvpro_last_channel_id");
+      } catch(e) {}
+
+      var initialIndex = 0;
+      if (lastId) {
+        for (var k = 0; k < displayedChannels.length; k++) {
+          if (displayedChannels[k].id === lastId) {
+            initialIndex = k;
+            break;
+          }
+        }
+      }
+
+      if (displayedChannels.length > 0) {
+        playChannel(initialIndex);
+      }
+
+    })();
+  </script>
+</body>
+</html>
