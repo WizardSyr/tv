@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>TVPro - Live Worldwide TV</title>
+  <title>TVPro - Live Worldwide TV & Sports</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -67,8 +67,8 @@
     .brand-logo {
       width: 32px;
       height: 32px;
-      background: -webkit-linear-gradient(135deg, #3b82f6, #8b5cf6);
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      background: -webkit-linear-gradient(135deg, #2563eb, #10b981);
+      background: linear-gradient(135deg, #2563eb, #10b981);
       border-radius: 8px;
       display: -webkit-box;
       display: -webkit-flex;
@@ -80,7 +80,7 @@
       -webkit-justify-content: center;
       justify-content: center;
       font-size: 18px;
-      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
     }
     
     .brand-title {
@@ -123,6 +123,11 @@
     }
     .btn-action:hover, .btn-action:active {
       background: #334155;
+      color: #fff;
+    }
+    .btn-action-primary {
+      background: #2563eb;
+      border-color: #3b82f6;
       color: #fff;
     }
 
@@ -238,8 +243,8 @@
       border-color: #334155;
     }
     .channel-item.playing {
-      background: -webkit-linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(139, 92, 246, 0.15));
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(139, 92, 246, 0.15));
+      background: -webkit-linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(16, 185, 129, 0.15));
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(16, 185, 129, 0.15));
       border: 1px solid #3b82f6;
     }
 
@@ -454,7 +459,7 @@
       background: #151b27;
       border: 1px solid #2b384e;
       border-radius: 12px;
-      max-width: 420px;
+      max-width: 460px;
       width: 100%;
       padding: 20px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.6);
@@ -462,7 +467,13 @@
     .modal-card h3 {
       font-size: 16px;
       color: #fff;
+      margin-bottom: 8px;
+    }
+    .modal-card p {
+      font-size: 12px;
+      color: #94a3b8;
       margin-bottom: 12px;
+      line-height: 1.4;
     }
     .modal-card input {
       width: 100%;
@@ -490,11 +501,11 @@
   <!-- Top Header -->
   <header>
     <div class="brand-wrap">
-      <div class="brand-logo">📺</div>
-      <div class="brand-title">TV<span>Pro</span></div>
+      <div class="brand-logo">⚽</div>
+      <div class="brand-title">TV<span>Pro</span> <span style="font-size:12px; color:#10b981; font-weight:normal; margin-left:6px;">Live Sports</span></div>
     </div>
     <div class="header-actions">
-      <button class="btn-action" id="btnAddStream">+ Add Stream</button>
+      <button class="btn-action btn-action-primary" id="btnAddStream">➕ Add Match Link</button>
       <button class="btn-action" id="btnReload">🔄 Reload</button>
     </div>
   </header>
@@ -505,18 +516,18 @@
     <!-- Left Sidebar: Channel Guide -->
     <div class="channel-guide">
       <div class="guide-search">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search channels...">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search channels & matches...">
       </div>
       
       <!-- Category Pills -->
       <div class="category-bar" id="categoryBar">
         <div class="cat-pill active" data-cat="all">All (الكل)</div>
-        <div class="cat-pill" data-cat="arabic">عربي (Arabic)</div>
-        <div class="cat-pill" data-cat="sports">Sports (الرياضة)</div>
-        <div class="cat-pill" data-cat="movies">Movies (الأفلام)</div>
-        <div class="cat-pill" data-cat="news">News (الأخبار)</div>
-        <div class="cat-pill" data-cat="kids">Kids (أطفال)</div>
-        <div class="cat-pill" data-cat="custom">My Channels</div>
+        <div class="cat-pill" data-cat="sports">⚽ Sports & Football (الرياضة)</div>
+        <div class="cat-pill" data-cat="arabic">🌍 عربي (Arabic)</div>
+        <div class="cat-pill" data-cat="movies">🎬 Movies (الأفلام)</div>
+        <div class="cat-pill" data-cat="news">📰 News (الأخبار)</div>
+        <div class="cat-pill" data-cat="kids">👶 Kids (أطفال)</div>
+        <div class="cat-pill" data-cat="custom">⭐ My Match Streams</div>
       </div>
 
       <!-- Channel List -->
@@ -549,12 +560,13 @@
   <!-- Custom Stream Modal -->
   <div class="modal-overlay" id="customModal">
     <div class="modal-card">
-      <h3>Add Custom HLS (.m3u8) Stream</h3>
-      <input type="text" id="customName" placeholder="Channel Name (e.g. My Movie TV)">
+      <h3>Add Live Match / Custom Stream (.m3u8)</h3>
+      <p>Paste any live match link (from Yalla Shoot, Koora Live, or IPTV lists) to watch on your iPad with full 60 FPS hardware acceleration!</p>
+      <input type="text" id="customName" placeholder="Match / Channel Name (e.g. Arsenal vs Liverpool)">
       <input type="text" id="customUrl" placeholder="Stream URL (https://.../stream.m3u8)">
       <div class="modal-btns">
         <button class="btn-action" id="btnCancelCustom">Cancel</button>
-        <button class="btn-action" style="background:#2563eb; color:#fff;" id="btnSaveCustom">Save Channel</button>
+        <button class="btn-action btn-action-primary" id="btnSaveCustom">Save & Play</button>
       </div>
     </div>
   </div>
@@ -563,21 +575,28 @@
     // Strict ES5 JavaScript for iOS 9.3.5 Safari
     (function() {
       var CHANNELS = [
-        // Arabic
+        // Sports & Live Football
+        { id: "bein_usa", name: "beIN SPORTS USA", nameAr: "بي إن سبورتس الأمريكية (مباريات وبطولات)", cat: "sports", quality: "720p HD", icon: "⚽", url: "https://tvsen6.aynaott.com/beinsports/index.m3u8" },
+        { id: "bein_xtra", name: "beIN SPORTS XTRA", nameAr: "بي إن سبورتس إكسترا الرياضية", cat: "sports", quality: "720p HD", icon: "⚽", url: "https://bein-xtra-bein.amagi.tv/playlist.m3u8" },
+        { id: "alkass1", name: "Alkass 1 HD Live", nameAr: "قناة الكأس 1 الرياضية (مباريات مباشرة)", cat: "sports", quality: "1080p HD", icon: "🏆", url: "https://shoof.alkass.net/shoof/live/live_1.m3u8" },
+        { id: "alkass2", name: "Alkass 2 HD Live", nameAr: "قناة الكأس 2 الرياضية", cat: "sports", quality: "1080p HD", icon: "🏆", url: "https://shoof.alkass.net/shoof/live/live_2.m3u8" },
+        { id: "alkass4", name: "Alkass 4 HD Live", nameAr: "قناة الكأس 4 الرياضية", cat: "sports", quality: "1080p HD", icon: "🏆", url: "https://shoof.alkass.net/shoof/live/live_4.m3u8" },
+        { id: "cbs_golazo", name: "CBS Sports Golazo (Champions League)", nameAr: "دوري أبطال أوروبا وسيري آ الإيطالي", cat: "sports", quality: "720p HD", icon: "🥅", url: "https://dai.google.com/linear/hls/event/7f3Wv6f7QEKfQna22jHqLQ/master.m3u8" },
+        { id: "eurovision_sport", name: "Eurovision Sport", nameAr: "البطولات الرياضية الأوروبية الرسمية", cat: "sports", quality: "720p HD", icon: "🏅", url: "https://amg26268-amg26268c34-amgplt0018.playout.now3.amagi.tv/playlist.m3u8" },
+        { id: "redbull_tv", name: "Red Bull TV Live Sports", nameAr: "ريد بُل تي في للرياضات العالمية والسباقات", cat: "sports", quality: "1080p HD", icon: "🏎️", url: "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8" },
+        { id: "sportsgrid", name: "Sports Grid Live Network", nameAr: "شبكة سبورتس جريد لتحليلات المباريات المباشرة", cat: "sports", quality: "720p HD", icon: "📊", url: "https://sportsgrid-klowdtv.amagi.tv/playlist.m3u8" },
+        { id: "ftf_sports", name: "FTF Sports Live Network", nameAr: "إف تي إف سبورتس للمباريات المباشرة", cat: "sports", quality: "720p HD", icon: "🥊", url: "https://1657061170.rsc.cdn77.org/HLS/FTF-LINEAR.m3u8" },
+        { id: "tvs_classicsport", name: "TVS Classic Sports", nameAr: "كلاسيك سبورتس للنزالات والمباريات التاريخية", cat: "sports", quality: "SD", icon: "🥊", url: "https://rpn.bozztv.com/gusa/gusa-tvs/index.m3u8" },
+
+        // Arabic Channels
         { id: "aja", name: "Al Jazeera Arabic", nameAr: "الجزيرة الإخبارية", cat: "arabic", quality: "1080p HD", icon: "🌍", url: "https://live-hls-apps-aja-fa.getaj.net/AJA/index.m3u8" },
+        { id: "ajm", name: "Al Jazeera Mubasher", nameAr: "الجزيرة مباشر", cat: "arabic", quality: "1080p HD", icon: "🔴", url: "https://live-hls-apps-ajm-fa.getaj.net/AJM/index.m3u8" },
+        { id: "ajd", name: "Al Jazeera Documentary", nameAr: "الجزيرة الوثائقية", cat: "arabic", quality: "1080p HD", icon: "🦁", url: "https://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8" },
         { id: "ara", name: "Al Arabiya HD", nameAr: "قناة العربية", cat: "arabic", quality: "720p HD", icon: "⚡", url: "https://live.alarabiya.net/alarabiapublish/alarabiya.smil/playlist.m3u8" },
         { id: "had", name: "Al Hadath", nameAr: "قناة الحدث", cat: "arabic", quality: "720p HD", icon: "🔴", url: "https://live.alarabiya.net/alarabiapublish/alhadath.smil/playlist.m3u8" },
-        { id: "ajd", name: "Al Jazeera Documentary", nameAr: "الجزيرة الوثائقية", cat: "arabic", quality: "1080p HD", icon: "🦁", url: "https://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8" },
         { id: "sna", name: "Sky News Arabia", nameAr: "سكاي نيوز عربية", cat: "arabic", quality: "720p HD", icon: "📡", url: "https://stream.skynewsarabia.com/hls/sna.m3u8" },
         { id: "trt", name: "TRT Arabic", nameAr: "تي آر تي عربي", cat: "arabic", quality: "1080p HD", icon: "🌐", url: "https://tv-trtarabi.medya.trt.com.tr/master.m3u8" },
-
-        // Sports
-        { id: "bein", name: "beIN SPORTS XTRA", nameAr: "بي إن سبورتس XTRA", cat: "sports", quality: "720p HD", icon: "⚽", url: "https://bein-xtra-bein.amagi.tv/playlist.m3u8" },
-        { id: "cbs", name: "CBS Sports Golazo", nameAr: "سي بي إس سبورتس جولازو", cat: "sports", quality: "720p HD", icon: "🥅", url: "https://dai.google.com/linear/hls/event/7f3Wv6f7QEKfQna22jHqLQ/master.m3u8" },
-        { id: "redbull", name: "Red Bull TV Live", nameAr: "ريد بُل تي في للرياضات", cat: "sports", quality: "1080p HD", icon: "🏎️", url: "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8" },
-        { id: "sgrid", name: "Sports Grid Network", nameAr: "شبكة سبورتس جريد الرياضية", cat: "sports", quality: "720p HD", icon: "📊", url: "https://sportsgrid-klowdtv.amagi.tv/playlist.m3u8" },
-        { id: "ftf", name: "FTF Sports Live", nameAr: "إف تي إف سبورتس", cat: "sports", quality: "720p HD", icon: "🏆", url: "https://1657061170.rsc.cdn77.org/HLS/FTF-LINEAR.m3u8" },
-        { id: "tvsport", name: "TVS Classic Sports", nameAr: "كلاسيك سبورتس للملاكمة والمباريات", cat: "sports", quality: "SD", icon: "🥊", url: "https://rpn.bozztv.com/gusa/gusa-tvs/index.m3u8" },
+        { id: "sharjah", name: "Sharjah TV HD", nameAr: "تلفزيون الشارقة", cat: "arabic", quality: "1080p HD", icon: "🕌", url: "https://svs.itworkscdn.net/smctvlive/smctv.smil/playlist.m3u8" },
 
         // Movies & Cinema
         { id: "mov24", name: "24H Free Movies HD", nameAr: "أفلام هوليوود 24 ساعة", cat: "movies", quality: "1080p HD", icon: "🎬", url: "https://d1j2u714xk898n.cloudfront.net/scheduler/scheduleMaster/145.m3u8" },
@@ -782,16 +801,16 @@
         var name = document.getElementById("customName").value.trim();
         var url = document.getElementById("customUrl").value.trim();
         if (!name || !url) {
-          alert("Please enter a name and .m3u8 stream URL.");
+          alert("Please enter a match name and .m3u8 stream URL.");
           return;
         }
         var newCh = {
           id: "custom_" + Date.now(),
           name: name,
-          nameAr: "قناة مخصصة",
+          nameAr: "مباراة مباشرة / بث مخصص",
           cat: "custom",
-          quality: "User Stream",
-          icon: "⭐",
+          quality: "Live Match",
+          icon: "⚽",
           url: url
         };
         var list = getCustomChannels();
@@ -804,7 +823,22 @@
         document.getElementById("customUrl").value = "";
         modal.style.display = "none";
         renderChannelList();
-        alert("Custom stream added!");
+        
+        // Immediately play the added match
+        var all = getAllChannels();
+        for (var m = 0; m < all.length; m++) {
+          if (all[m].id === newCh.id) {
+            activeCategory = "all";
+            var pills = categoryBar.getElementsByClassName("cat-pill");
+            for (var p = 0; p < pills.length; p++) {
+              if (pills[p].getAttribute("data-cat") === "all") pills[p].className = "cat-pill active";
+              else pills[p].className = "cat-pill";
+            }
+            renderChannelList();
+            playChannel(m);
+            break;
+          }
+        }
       };
 
       // Initial Render
